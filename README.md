@@ -15,18 +15,13 @@
 
 - Lifting states
 - Connect app to the backend
-- Building a REST API - recap module 2 knowledge 
+- Building a REST API - recap module 2 knowledge
 - Integrating the React app - connect our React app to an API
 
 ## Activities
 
 - Thinking in React - Planning ahead components and their communication
 - React Ironbeers - The random beers now under React
-
-# Next - day w7d5
-
-- Authentication
-- Express and file upload
 
 # Goals
 
@@ -37,4 +32,3 @@
 # Bonus
 
 Presentational and Container Components by Dan Abramov https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
-
