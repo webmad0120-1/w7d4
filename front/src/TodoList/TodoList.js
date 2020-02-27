@@ -5,60 +5,21 @@ import TodoItem from "../TodoItem/TodoItem";
 
 export default class TodoList extends React.Component {
   state = {
-    todo: [
-      {
-        fav: true,
-        done: false,
-        _id: "5e57882c6972fbfb7547eef4",
-        name: "Task 1",
-        createdAt: "2020-02-27T09:13:16.983Z"
-      },
-      {
-        fav: true,
-        done: false,
-        _id: "5e57882c6972fbfb7547eef5",
-        name: "Task 2",
-        createdAt: "2020-02-27T09:13:16.983Z"
-      },
-      {
-        fav: true,
-        done: false,
-        _id: "5e57882c6972fbfb7547eef6",
-        name: "Task 3",
-        createdAt: "2020-02-27T09:13:16.983Z"
-      }
-    ],
-    done: [
-      {
-        fav: true,
-        done: true,
-        _id: "5e57882c6972fbfb7547eea1",
-        name: "Task 1 done",
-        createdAt: "2020-02-27T09:13:16.983Z"
-      },
-      {
-        fav: true,
-        done: true,
-        _id: "5e57882c6972fbfb7547eea2",
-        name: "Task 2 done",
-        createdAt: "2020-02-27T09:13:16.983Z"
-      },
-      {
-        fav: true,
-        done: true,
-        _id: "5e57882c6972fbfb7547eea3",
-        name: "Task 3 done",
-        createdAt: "2020-02-27T09:13:16.983Z"
-      },
-      {
-        fav: true,
-        done: true,
-        _id: "5e57882c6972fbfb7547eea4",
-        name: "Task 4 done",
-        createdAt: "2020-02-27T09:13:16.983Z"
-      }
-    ]
+    todo: [],
+    done: []
   };
+
+  componentDidMount() {
+    axios.get("http://localhost:4000/tasks/all").then(allTasks => {
+      allTasks = allTasks.data;
+
+      this.setState({
+        todo: allTasks.filter(task => !task.done),
+        done: allTasks.filter(task => task.done)
+      });
+    });
+  }
+
   render() {
     return (
       <section className="TodoList">
@@ -67,7 +28,7 @@ export default class TodoList extends React.Component {
           <h1>To do ({this.state.todo.length})</h1>
           <ul>
             {this.state.todo.map(task => (
-              <li>
+              <li key={task._id}>
                 <TodoItem {...task}></TodoItem>
               </li>
             ))}
@@ -78,7 +39,7 @@ export default class TodoList extends React.Component {
           <h1>Done ({this.state.done.length})</h1>
           <ul>
             {this.state.done.map(task => (
-              <li>
+              <li key={task._id}>
                 <TodoItem {...task}></TodoItem>
               </li>
             ))}
