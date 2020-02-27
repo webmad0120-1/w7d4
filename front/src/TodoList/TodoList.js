@@ -7,8 +7,8 @@ export default class TodoList extends React.Component {
   render() {
     return (
       <section className="TodoList">
-        <input type="text" placeholder="add new task" />
-        <section>
+        <input type="text" placeholder="add new task" id="add-task" />
+        <section className="to-do">
           <h1>To do (4)</h1>
           <ul>
             <li>
@@ -32,7 +32,7 @@ export default class TodoList extends React.Component {
           </ul>
         </section>
 
-        <section>
+        <section className="done">
           <h1>Done (4)</h1>
           <ul>
             <li>

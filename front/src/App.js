@@ -6,9 +6,8 @@ import TodoList from "./TodoList/TodoList";
 export default class App extends React.Component {
   render() {
     return (
-      <div>
+      <div className="App">
         <TodoList></TodoList>
-        <footer>Copyright Ironhack 2020</footer>
       </div>
     );
   }
