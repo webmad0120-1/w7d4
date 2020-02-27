@@ -15,6 +15,7 @@ router.post("/", (req, res, next) => {
 router.get("/all", (req, res, next) => {
   TodoItem.find()
     .select({ updatedAt: 0, __v: 0 })
+    .sort({createdAt: -1})
     .then(allTasks => res.json(allTasks));
 });
 
@@ -33,12 +34,12 @@ router.put("/:id", (req, res, next) => {
 });
 // U (update) of CRUD end
 
-// D (update) of CRUD start
+// D (delete) of CRUD start
 router.delete("/:id", (req, res, next) => {
   TodoItem.findByIdAndDelete(req.params.id).then(deletedTask =>
     res.json({ deleted: true, deletedTask })
   );
 });
-// D (update) of CRUD end
+// D (delete) of CRUD end
 
 module.exports = router;
