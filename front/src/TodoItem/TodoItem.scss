@@ -6,6 +6,12 @@
   align-items: center;
   width: 100%;
 
+  &.item-done {
+    h5 {
+      text-decoration: line-through;
+    }
+  }
+
   input {
     margin-right: 0.5rem;
     font-size: 3rem;
