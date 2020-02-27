@@ -26,6 +26,14 @@ export default class TodoList extends React.Component {
     this._updateAllTasks();
   }
 
+  updateExistingTask(id, done) {
+    axios
+      .put(`http://localhost:4000/tasks/${id}`, {
+        done: !done
+      })
+      .then(_ => this._updateAllTasks());
+  }
+
   updateNewTask(e) {
     this.setState({
       ...this.state,
@@ -55,14 +63,21 @@ export default class TodoList extends React.Component {
           onKeyDown={e => this.checkEnter(e)}
         />
         <section className="to-do">
-          <h1>To do ({this.state.todo.length})</h1>
-          <ul>
-            {this.state.todo.map(task => (
-              <li key={task._id}>
-                <TodoItem {...task}></TodoItem>
-              </li>
-            ))}
-          </ul>
+          {this.state.todo.length > 0 && (
+            <React.Fragment>
+              <h1>To do ({this.state.todo.length})</h1>
+              <ul>
+                {this.state.todo.map(task => (
+                  <li key={task._id}>
+                    <TodoItem
+                      {...task}
+                      onTaskClicked={(id, done) => this.updateExistingTask(id, done)}
+                    ></TodoItem>
+                  </li>
+                ))}
+              </ul>
+            </React.Fragment>
+          )}
         </section>
 
         <section className="done">
@@ -70,7 +85,10 @@ export default class TodoList extends React.Component {
           <ul>
             {this.state.done.map(task => (
               <li key={task._id}>
-                <TodoItem {...task}></TodoItem>
+                <TodoItem
+                  {...task}
+                  onTaskClicked={(id, done) => this.updateExistingTask(id, done)}
+                ></TodoItem>
               </li>
             ))}
           </ul>
