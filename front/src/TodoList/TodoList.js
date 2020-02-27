@@ -34,6 +34,26 @@ export default class TodoList extends React.Component {
       .then(_ => this._updateAllTasks());
   }
 
+  updateExistingTaskName(id, newName) {
+    axios
+      .put(`http://localhost:4000/tasks/${id}`, {
+        name: newName
+      })
+      .then(_ => this._updateAllTasks());
+  }
+
+  deleteExistingTask(id) {
+    axios.delete(`http://localhost:4000/tasks/${id}`).then(_ => this._updateAllTasks());
+  }
+
+  favExistingTask(id, fav) {
+    axios
+      .put(`http://localhost:4000/tasks/${id}`, {
+        fav: !fav
+      })
+      .then(_ => this._updateAllTasks());
+  }
+
   updateNewTask(e) {
     this.setState({
       ...this.state,
@@ -71,7 +91,10 @@ export default class TodoList extends React.Component {
                   <li key={task._id}>
                     <TodoItem
                       {...task}
+                      onDeleteTask={id => this.deleteExistingTask(id)}
+                      onTaskFav={(id, fav) => this.favExistingTask(id, fav)}
                       onTaskClicked={(id, done) => this.updateExistingTask(id, done)}
+                      onUpdateTaskName={(id, newName) => this.updateExistingTaskName(id, newName)}
                     ></TodoItem>
                   </li>
                 ))}
@@ -87,7 +110,10 @@ export default class TodoList extends React.Component {
               <li key={task._id}>
                 <TodoItem
                   {...task}
+                  onDeleteTask={id => this.deleteExistingTask(id)}
+                  onTaskFav={id => this.favExistingTask(id)}
                   onTaskClicked={(id, done) => this.updateExistingTask(id, done)}
+                  onUpdateTaskName={(id, newName) => this.updateExistingTaskName(id, newName)}
                 ></TodoItem>
               </li>
             ))}
